@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends "layout/base.html" %}
+
+{% block 'title' %} Tareas {% endblock 'title' %} 
+
+{% block 'content' %}
+<h1>Tareas</h1>
+<ul class="messages">
+  {% for message in messages %}
+      <li {% if message.tags %} class="alert-success"> {% endif %} {{ message }} </li>
+  {% endfor %}
+</ul>
+
+{% include "todo/partials/search.html" %}
+
+<span class="aux-btns"><a href="{% url 'todo' %}">Ver Todos </a><a href="{% url 'todo_create' %}"> Añadir Tarea</a></span>
+<ul class="list">
+  {% for todo in todos %}
+  <li> {{ todo.title }}
+    <span>
+        <a href="{% url 'todo_view' id=todo.id %}" class="btn btn-detail"> Ver</a>
+        <a href="{% url 'todo_edit' id=todo.id %}" class="btn btn-edit"> Editar</a>
+        <a href="{% url 'todo_delete' id=todo.id%}" class="btn btn-delete"> Borrar</a>
+
+    </span>
+  </li>
+        
+  {% endfor %}
+</ul>
+  
+{% endblock 'content' %}
